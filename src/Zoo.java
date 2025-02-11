@@ -1,64 +1,61 @@
 import java.util.Arrays;
 
 public class Zoo {
-	Animal [] animals;
-	String name;
-	String city;
-	int nbrCages;
-
-    public void setAnimals(Animal[] animals) {
-        this.animals = animals;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setNbrCages(int nbrCages) {
-        this.nbrCages = Math.min(nbrCages, 25);
-    }
+    private static final int NBR_CAGES = 25; // Constant max capacity
+    private Animal[] animals;
+    private String name;
+    private String city;
+    private int animalCount; // Tracks current number of animals
 
     Zoo(String name, String city, int nbrCages) {
-        this.animals = new Animal[Math.min(nbrCages, 25)];
+        this.animals = new Animal[NBR_CAGES];
         this.name = name;
         this.city = city;
-        this.nbrCages = Math.min(nbrCages, 25);
+        this.animalCount = 0;
     }
 
-    public void appendAnimal(Animal animal) {
-        for (int i = 0; i < this.animals.length; i++) {
-            if (this.animals[i] == null) {
-                this.animals[i] = animal;
-                break;
-            }
+    public boolean addAnimal(Animal animal) {
+        if (isZooFull() || searchAnimal(animal) != -1) {
+            return false;
         }
+        animals[animalCount++] = animal;
+        return true;
     }
 
     public void showAnimals() {
-        System.out.println("-----------------");
-        for (Animal animal : this.animals) {
-            animal.showAnimal();
-            System.out.println("-----------------");
+        System.out.println("Animals in " + name + ":");
+        for (int i = 0; i < animalCount; i++) {
+            System.out.println(animals[i]);
         }
     }
 
-    public void displayZoo() {
-        System.out.println(this.name);
-        System.out.println(this.city);
-        System.out.println(this.nbrCages);
+    public int searchAnimal(Animal animal) {
+        for (int i = 0; i < animalCount; i++) {
+            if (animals[i].name.equals(animal.name)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public boolean removeAnimal(Animal animal) {
+        int index = searchAnimal(animal);
+        if (index == -1) return false;
+        animals[index] = animals[--animalCount];
+        animals[animalCount] = null;
+        return true;
+    }
+
+    public boolean isZooFull() {
+        return animalCount >= NBR_CAGES;
+    }
+
+    public static Zoo comparerZoo(Zoo z1, Zoo z2) {
+        return z1.animalCount >= z2.animalCount ? z1 : z2;
     }
 
     @Override
     public String toString() {
-        return "Zoo{" +
-                "animals=" + Arrays.toString(animals) +
-                ", name='" + name + '\'' +
-                ", city='" + city + '\'' +
-                ", nbrCages=" + nbrCages +
-                '}';
+        return "Zoo{name='" + name + "', city='" + city + "', animals=" + Arrays.toString(animals) + "}";
     }
 }
