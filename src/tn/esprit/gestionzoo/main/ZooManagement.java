@@ -1,3 +1,8 @@
+package tn.esprit.gestionzoo.main;
+
+import tn.esprit.gestionzoo.entities.Animal;
+import tn.esprit.gestionzoo.entities.Zoo;
+
 public class ZooManagement {
     public static void main(String[] args) {
         Zoo myZoo = new Zoo("Belvedere", "Tunis", 23);
@@ -6,7 +11,7 @@ public class ZooManagement {
 
         System.out.println(myZoo.addAnimal(lion));
         System.out.println(myZoo.addAnimal(tiger));
-        System.out.println(myZoo.addAnimal(lion));  //
+        System.out.println(myZoo.addAnimal(lion));
 
         myZoo.showAnimals();
 

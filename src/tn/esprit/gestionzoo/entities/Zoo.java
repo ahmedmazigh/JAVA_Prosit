@@ -1,17 +1,38 @@
+package tn.esprit.gestionzoo.entities;
+
 import java.util.Arrays;
 
 public class Zoo {
-    private static final int NBR_CAGES = 25; // Constant max capacity
+    private static final int NBR_CAGES = 25;
     private Animal[] animals;
     private String name;
     private String city;
-    private int animalCount; // Tracks current number of animals
+    private int animalCount;
 
-    Zoo(String name, String city, int nbrCages) {
-        this.animals = new Animal[NBR_CAGES];
-        this.name = name;
+    public Zoo(String name, String city, int nbrCages) {
+        setName(name);
         this.city = city;
+        this.animals = new Animal[NBR_CAGES];
         this.animalCount = 0;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Zoo name cannot be empty.");
+        }
+        this.name = name;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public boolean addAnimal(Animal animal) {
@@ -31,7 +52,7 @@ public class Zoo {
 
     public int searchAnimal(Animal animal) {
         for (int i = 0; i < animalCount; i++) {
-            if (animals[i].name.equals(animal.name)) {
+            if (animals[i].getName().equals(animal.getName())) {
                 return i;
             }
         }
