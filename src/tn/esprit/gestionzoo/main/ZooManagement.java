@@ -2,23 +2,26 @@ package tn.esprit.gestionzoo.main;
 
 import tn.esprit.gestionzoo.entities.Animal;
 import tn.esprit.gestionzoo.entities.Zoo;
+import tn.esprit.gestionzoo.entities.Aquatic;
+import tn.esprit.gestionzoo.entities.Terrestrial;
+import tn.esprit.gestionzoo.entities.Penguin;
+import tn.esprit.gestionzoo.entities.Dolphin;
 
 public class ZooManagement {
     public static void main(String[] args) {
-        Zoo myZoo = new Zoo("Belvedere", "Tunis", 23);
-        Animal lion = new Animal("Lion", "Simba", 5, true);
-        Animal tiger = new Animal("Tiger", "Rajah", 4, true);
+        Aquatic aquatic = new Aquatic("Fish", "houta", 2, true, "Ocean");
+        Terrestrial terrestrial = new Terrestrial("Dog", "kalb", 3, true, 4);
+        Dolphin dolphin = new Dolphin("Dolphin", "dolfino", 5, true, "Ocean", 25.5f);
+        Penguin penguin = new Penguin("Penguin", "minou", 4, true, "Antarctic", 100.0f);
 
-        System.out.println(myZoo.addAnimal(lion));
-        System.out.println(myZoo.addAnimal(tiger));
-        System.out.println(myZoo.addAnimal(lion));
+        System.out.println(aquatic);
+        System.out.println(terrestrial);
+        System.out.println(dolphin);
+        System.out.println(penguin);
 
-        myZoo.showAnimals();
+        aquatic.swim();
+        dolphin.swim();
+        penguin.swim();
 
-        System.out.println("Search 'Simba': " + myZoo.searchAnimal(lion));
-        System.out.println("Removing 'Simba': " + myZoo.removeAnimal(lion));
-        System.out.println("Removing 'Simba' again: " + myZoo.removeAnimal(lion));
-
-        myZoo.showAnimals();
     }
 }
